@@ -9,25 +9,43 @@ function formatDate(date){
 const today = new Date();
 currently.textContent = formatDate(today);
 
-//function that will make the list
-function generatelist(tasks){
-const taskInput = document.getElementById(tasks)
 
-//The next part ensures that no empty things are added to the list
-const taskTest = taskInput.value.trim()
+const Tasks= document.getElementById("tasks");
+const listContainer= document.getElementById("list-container");
 
-if (taskText === '') {
-    alert('Please enter a task.');
-    return;
+function addTask(){
+    // when nothing is entered in the input box
+    if(Tasks.value ===''){
+        alert("You must write something!");
+    }
+    else{
+        let li = document.createElement("li");
+        li.innerHTML = Tasks.value;
+        event.preventDefault();
+        listContainer.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+    }
+    Tasks.value = "" ;
+    saveData();
 }
+
+listContainer.addEventListener("click",function(e){
+    if(e.target.tagName === "LI"){
+        e.target.classList.toggle("checked");
+        saveData();
+    }
+    else if(e.target.tagName === "SPAN"){
+        e.target.parentElement.remove();
+        saveData();
+    }
+},false);
+
+function saveData(){
+    localStorage.setItem("Data",listContainer.innerHTML);
 }
-
-// Displaying the tasks on to the empty div:
-document.getElementById('to-do').addEventListener('submit',function(event){
-    event.preventDefault();
-    const tasks = (document.getElementById('tasks').value);
-    const lists = document.getElementById('List');
-    lists.innerHTML = ''
-    const ul = generatelist(tasks)
-
-})
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("Data");
+}
+showTask();
