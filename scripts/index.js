@@ -11,7 +11,7 @@ currently.textContent = formatDate(today);
 
 
 const Tasks= document.getElementById("tasks");
-const listContainer= document.getElementById("list-container");
+const listContainer= document.getElementById("listContainer");
 
 function addTask(){
     // when nothing is entered in the input box
@@ -24,7 +24,7 @@ function addTask(){
         event.preventDefault();
         listContainer.appendChild(li);
         let span = document.createElement("span");
-        span.innerHTML = "\u00d7";
+        span.innerHTML = "DELETE";
         li.appendChild(span);
     }
     Tasks.value = "" ;
